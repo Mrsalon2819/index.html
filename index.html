@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Teddy Day Special ❤️</title>
+<style>
+body {
+    margin:0;
+    font-family: 'Comic Sans MS', cursive;
+    background: linear-gradient(120deg,#ff9a9e,#fad0c4);
+    text-align:center;
+    color:white;
+    overflow:hidden;
+}
+.section { 
+    padding:40px; 
+    display:none;
+}
+.section.active {
+    display:block;
+}
+button {
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#ff4d6d;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    margin:10px;
+}
+button:hover {background:#ff1c4d;}
+.card {
+    background: rgba(255,255,255,0.2);
+    padding:20px;
+    border-radius:20px;
+    margin:20px auto;
+    width:80%;
+}
+.progress {
+    width:80%;
+    background:#fff;
+    border-radius:20px;
+    margin:auto;
+}
+.bar {
+    height:25px;
+    width:0%;
+    background:#ff4d6d;
+    border-radius:20px;
+}
+input {
+    padding:8px;
+    border-radius:10px;
+    border:none;
+}
+.heart {
+    position:absolute;
+    font-size:24px;
+    animation: float 5s linear infinite;
+}
+@keyframes float {
+    0% {top:100%; opacity:1;}
+    100% {top:-10%; opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<h1>🧸 Teddy Day Love Game ❤️</h1>
+
+<!-- Section 0 -->
+<div class="section card active">
+    <h2>Welcome my cutie 😘</h2>
+    <p>I made something special for you 💝</p>
+</div>
+
+<!-- Section 1 -->
+<div class="section card">
+<h2>Game 1: Guess My Love %</h2>
+<input type="number" id="guess" placeholder="0-100">
+<button onclick="checkLove()">Guess</button>
+<p id="result"></p>
+</div>
+
+<!-- Section 2 -->
+<div class="section card">
+<h2>Game 2: Click the Teddy</h2>
+<p>Click 5 times to unlock surprise</p>
+<div style="font-size:80px; cursor:pointer;" onclick="clickTeddy()">🧸</div>
+<p id="teddyCount">0 clicks</p>
+</div>
+
+<!-- Section 3 -->
+<div class="section card">
+<h2>Love Meter</h2>
+<button onclick="fillLove()">Increase Love</button>
+<div class="progress">
+    <div class="bar" id="loveBar"></div>
+</div>
+</div>
+
+<!-- Section 4 -->
+<div class="section card">
+<h2>Game 3: How well you know me?</h2>
+<p>My favorite thing?</p>
+<button onclick="quiz('a')">You ❤️</button>
+<button onclick="quiz('b')">Food 🍕</button>
+<p id="quizResult"></p>
+</div>
+
+<!-- Section 5 -->
+<div class="section card">
+<h2>Game 4: Will you be mine forever? 💍</h2>
+<button onclick="yes()">YES 😍</button>
+<button onmouseover="no(this)">NO 🙄</button>
+<p id="ans"></p>
+</div>
+
+<!-- Section 6 -->
+<div class="section card">
+<h2>Final Surprise 💝</h2>
+<button onclick="finalMsg()">Open</button>
+<p id="final"></p>
+</div>
+
+<button onclick="nextSection()">Next 👉</button>
+
+<script>
+let current = 0;
+let sections = document.querySelectorAll(".section");
+
+let clicks = 0;
+let love = 0;
+
+function nextSection() {
+    if(current < sections.length - 1) {
+        sections[current].classList.remove("active");
+        current++;
+        sections[current].classList.add("active");
+    }
+}
+
+function checkLove() {
+    let g = document.getElementById("guess").value;
+    if(g == 100)
+        document.getElementById("result").innerHTML = 
+        "Correct! My love is infinite ❤️";
+    else
+        document.getElementById("result").innerHTML = 
+        "Wrong 😝 But my love is more than " + g + "%";
+}
+
+function clickTeddy() {
+    clicks++;
+    document.getElementById("teddyCount").innerHTML = clicks + " clicks";
+    if(clicks == 5) {
+        alert("You unlocked my heart ❤️🧸");
+    }
+}
+
+function fillLove() {
+    if(love < 100) {
+        love += 10;
+        document.getElementById("loveBar").style.width = love + "%";
+    }
+}
+
+function quiz(ans) {
+    if(ans=='a')
+        document.getElementById("quizResult").innerHTML="Correct 😘 It's you!";
+    else
+        document.getElementById("quizResult").innerHTML="Wrong 😝 It's YOU!";
+}
+
+function yes() {
+    document.getElementById("ans").innerHTML="Yay! I'm yours forever ❤️🧸";
+}
+
+function no(btn) {
+    btn.style.position="absolute";
+    btn.style.left=Math.random()*300+"px";
+    btn.style.top=Math.random()*300+"px";
+}
+
+function finalMsg() {
+    document.getElementById("final").innerHTML =
+    "Will you be my forever teddy? 🧸💍❤️";
+}
+
+/* Heart rain */
+setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random()*100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+}, 500);
+</script>
+
+</body>
+</html>
